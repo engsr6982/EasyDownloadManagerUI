@@ -1,0 +1,16 @@
+<RCC>
+    <qresource>
+        <file>EasyDownloadManagerUI.qmlproject</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>Src/App.qml</file>
+        <file>Src/components/NavButton.qml</file>
+        <file>Src/components/SettingExpander.qml</file>
+        <file>Src/components/SettingGroup.qml</file>
+        <file>Src/components/SettingRow.qml</file>
+        <file>Src/components/TaskCard.qml</file>
+        <file>Src/Constants.qml</file>
+        <file>Src/qmldir</file>
+        <file>Src/views/SettingsView.qml</file>
+        <file>Src/views/TaskListView.qml</file>
+    </qresource>
+</RCC>
