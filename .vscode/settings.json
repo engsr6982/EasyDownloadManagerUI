@@ -1,0 +1,11 @@
+{
+    "qt-qml.qmlls.customExePath": "D:/Program/Qt/6.8.3/msvc2022_64/bin/qmlls.exe",
+    "qt-qml.qmlls.additionalImportPaths": [
+        "D:/Program/Qt/6.8.3/msvc2022_64/qml",
+        "${workspaceFolder}"
+    ],
+    "qt-qml.qmlls.useQmlImportPathEnvVar": true,
+    "qt-qml.preview.additionalBuildDirs": [
+        "${workspaceFolder}"
+    ]
+}
