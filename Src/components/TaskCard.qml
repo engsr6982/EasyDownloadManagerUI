@@ -31,23 +31,27 @@ Item {
         border.width: 1
         border.color: delegateMouseArea.containsMouse ? Constants.accentPrimary : Constants.borderCard
 
-        Behavior on border.color { ColorAnimation { duration: 150 } }
+        Behavior on border.color {
+            ColorAnimation {
+                duration: 150
+            }
+        }
 
         MouseArea {
             id: delegateMouseArea
             anchors.fill: parent
             hoverEnabled: true
-            onClicked: {
-                // TODO: fix
-                // var win = cardRoot.Window.window;
-                // if (win && typeof win.openDetailsDrawer === "function") {
-                //     win.openDetailsDrawer({
-                //         "taskId": taskId, "fileName": fileName, "fileSizeStr": fileSizeStr,
-                //         "progressValue": progressValue, "speedStr": speedStr, "statusStr": statusStr,
-                //         "urlStr": urlStr, "saveDir": saveDir, "referrer": referrer, "timestamp": timestamp
-                //     });
-                // }
-            }
+            onClicked:
+            // TODO: fix
+            // var win = cardRoot.Window.window;
+            // if (win && typeof win.openDetailsDrawer === "function") {
+            //     win.openDetailsDrawer({
+            //         "taskId": taskId, "fileName": fileName, "fileSizeStr": fileSizeStr,
+            //         "progressValue": progressValue, "speedStr": speedStr, "statusStr": statusStr,
+            //         "urlStr": urlStr, "saveDir": saveDir, "referrer": referrer, "timestamp": timestamp
+            //     });
+            // }
+            {}
         }
 
         RowLayout {
@@ -157,9 +161,9 @@ Item {
                         background: Rectangle {
                             color: {
                                 if (!pauseBtn.enabled) {
-                                    return "transparent" // 禁用后 hover 透明
+                                    return "transparent"; // 禁用后 hover 透明
                                 }
-                                return pauseBtn.hovered ? Constants.borderSubtle : "transparent"
+                                return pauseBtn.hovered ? Constants.borderSubtle : "transparent";
                             }
                             radius: Constants.radiusControl
                         }

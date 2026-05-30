@@ -10,7 +10,7 @@ Project {
     }
 
     QmlFiles {
-        directory: "Generated"
+        directory: "Src/generated"
         recursive: true
     }
 
@@ -24,7 +24,7 @@ Project {
     }
 
     ImageFiles {
-        directory: "Generated"
+        directory: "Src/generated"
     }
 
     Files {
@@ -63,12 +63,12 @@ Project {
 
     Files {
         filter: "*.mesh"
-        directory: "Generated"
+        directory: "Src/generated"
     }
 
     Files {
         filter: "*.qad"
-        directory: "Generated"
+        directory: "Src/generated"
     }
 
     Environment {

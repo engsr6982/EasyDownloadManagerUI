@@ -37,13 +37,13 @@ Item {
             Button {
                 id: createBtn
                 Layout.preferredHeight: 32
-                onClicked: {
-                    // TODO: fix
-                    // var win = rootItem.Window.window;
-                    // if (win && typeof win.openNewTaskDialog === "function") {
-                    //     win.openNewTaskDialog();
-                    // }
-                }
+                onClicked:
+                // TODO: fix
+                // var win = rootItem.Window.window;
+                // if (win && typeof win.openNewTaskDialog === "function") {
+                //     win.openNewTaskDialog();
+                // }
+                {}
 
                 background: Rectangle {
                     color: createBtn.hovered ? Constants.accentHover : Constants.accentPrimary
@@ -126,13 +126,13 @@ Item {
                 referrer: model.referrer
                 timestamp: model.timestamp
 
-                onPauseClicked: function(id) {
-                    console.log("QML 捕获：暂停任务 ID ->", id)
+                onPauseClicked: function (id) {
+                    console.log("QML 捕获：暂停任务 ID ->", id);
                     // TODO: 向 C++ 发送信号
                 }
 
-                onDeleteClicked: function(id) {
-                    console.log("QML 捕获：删除任务 ID ->", id)
+                onDeleteClicked: function (id) {
+                    console.log("QML 捕获：删除任务 ID ->", id);
                     // TODO: 向 C++ 发送信号
                 }
             }

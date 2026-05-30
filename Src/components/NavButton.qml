@@ -39,7 +39,10 @@ Button {
             radius: 2
 
             Behavior on height {
-                NumberAnimation { duration: 150; easing.type: Easing.OutQuad }
+                NumberAnimation {
+                    duration: 150
+                    easing.type: Easing.OutQuad
+                }
             }
         }
     }

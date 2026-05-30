@@ -32,7 +32,7 @@ Window {
             // 当鼠标左键按下时，同步开启窗口移动
             MouseArea {
                 anchors.fill: parent
-                onPressed: (mouse) => mainWindow.startSystemMove()
+                onPressed: mouse => mainWindow.startSystemMove()
             }
 
             // 标题
@@ -119,7 +119,9 @@ Window {
                     anchors.fill: parent
                     anchors.margins: 12
 
-                    ButtonGroup { id: navGroup }
+                    ButtonGroup {
+                        id: navGroup
+                    }
 
                     // 上半部分
                     Column {
@@ -198,4 +200,3 @@ Window {
         }
     }
 }
-
