@@ -19,22 +19,42 @@ Item {
     readonly property color bgContent: "#FFFFFF"
     readonly property color dialogOverlay: "#80000000"
 
+    readonly property color bgDisabled: "#F3F2F1"
+
+    readonly property real opacityStandard: 1.0
+    readonly property real opacityDisabled: 0.45
+
+    readonly property color navHover: "#E2E7E9"
+
     // Accent Colors
-    readonly property color accentPrimary: "#0078D4"
-    readonly property color accentHover: "#006CC1"
-    readonly property color accentPressed: "#005499"
+    readonly property color accentPrimary: "#005A9E" //  "#0078D4"
+    readonly property color accentHover: "#1A6BA8"// "#006CC1"
+    readonly property color accentPressed: "#337BB1" // "#005499"
     readonly property color textAccent: "#005A9E"
+
+    readonly property color indicatorSelected: Constants.accentPrimary // 状态指示器(蓝条)
+
+    // Standard Colors
+    readonly property color standardPrimary: "#FEFEFE"
+    readonly property color standardHover: "#FBFBFB"
+    readonly property color standardPressed: "#FCFCFC"
 
     // Text & Border Colors
     readonly property color textPrimary: "#323130"
-    readonly property color textSecondary: "#605E5C"
+    readonly property color textSecondary: "#5F5F5F"
     readonly property color textOnAccent: "#FFFFFF"
     readonly property color borderSubtle: "#E4E9EB" // #E5E5E5
     readonly property color borderCard: "#EBEBEB"
-    readonly property color danger: "#E81123"
+
+    readonly property color textDisabled: '#605E5C'
+    readonly property color borderDisabled: "#E1DFDD"
 
     // Typography
-    readonly property string fontFamily: "Segoe UI Variable Display, Microsoft YaHei"
+    FontLoader {
+        id: interFontLoader
+        source: Qt.resolvedUrl("fonts/SourceHanSansCN-Regular.otf")
+    }
+    readonly property string fontFamily: interFontLoader.name + ", Microsoft YaHei, sans-serif"
     readonly property int fontSizeTitle: 16
     readonly property int fontSizeBody: 12
     readonly property int fontSizeSecondary: 11
@@ -44,11 +64,22 @@ Item {
     readonly property real radiusCard: 8.0
     readonly property real radiusControl: 4.0
 
+    // Border & Shadow
+    readonly property color shadowAccentBottom: "#00365F" // Accent 按钮的沉淀线
+    readonly property color shadowStandardBottom: "#EDEDED" // 普通按钮的沉淀线
+
     // Layout Spacing
     readonly property real marginStandard: 16.0
     readonly property real paddingStandard: 12.0
     readonly property real itemSpacing: 8.0
 
+    readonly property real viewTitlebarHeight: 32.0
+
     // Animations
     readonly property int animDurationNormal: 250
+
+    // Status Colors
+    readonly property color success: "#107C41"
+    readonly property color warning: "#FFB900"
+    readonly property color danger: "#E81123"
 }

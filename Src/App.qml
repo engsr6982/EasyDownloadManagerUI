@@ -89,7 +89,7 @@ Window {
                         font.pixelSize: 16
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        color: btnClose.hovered ? "#FFFFFF" : Constants.textPrimary
+                        color: btnClose.hovered ? Constants.bgContent : Constants.textPrimary
                     }
                     onClicked: mainWindow.close()
                 }

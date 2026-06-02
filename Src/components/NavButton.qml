@@ -25,7 +25,7 @@ Button {
         anchors.rightMargin: 1
 
         radius: Constants.radiusControl
-        color: (navBtn.checked || navBtn.hovered) ? "#E2E7E9" : "transparent"
+        color: (navBtn.checked || navBtn.hovered) ? Constants.navHover : "transparent"
 
         // 蓝色状态条
         Rectangle {
@@ -35,7 +35,7 @@ Button {
             anchors.left: parent.left
             anchors.leftMargin: 2 // 稍微内缩，防止贴死最左边切角
             anchors.verticalCenter: parent.verticalCenter
-            color: "#0078D4"
+            color: Constants.indicatorSelected
             radius: 2
 
             Behavior on height {

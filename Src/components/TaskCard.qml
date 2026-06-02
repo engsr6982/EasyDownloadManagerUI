@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import ".."
+import "../fluent"
 
 Item {
     id: cardRoot
@@ -90,18 +91,10 @@ Item {
                 }
 
                 // 进度条
-                Rectangle {
+                FluProgressBar {
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 4
-                    color: Constants.borderSubtle
-                    radius: 2
-
-                    Rectangle {
-                        width: parent.width * cardRoot.progressValue
-                        height: parent.height
-                        color: cardRoot.statusStr === "Completed" ? "#107C41" : Constants.accentPrimary
-                        radius: 2
-                    }
+                    value: cardRoot.progressValue
+                    indeterminate: cardRoot.statusStr === "Pending"
                 }
 
                 RowLayout {
@@ -128,7 +121,7 @@ Item {
                         text: cardRoot.statusStr ?? "N/A"
                         font.family: Constants.fontFamily
                         font.pixelSize: Constants.fontSizeSecondary
-                        color: cardRoot.statusStr === "Completed" ? "#107C41" : Constants.accentPrimary
+                        color: cardRoot.statusStr === "Completed" ? Constants.success : Constants.accentPrimary
                     }
                 }
             }
@@ -153,69 +146,23 @@ Item {
                     spacing: 4
 
                     // 暂停
-                    Button {
-                        id: pauseBtn
-                        width: 28
-                        height: 28
+                    FluIconButton {
+                        text: cardRoot.statusStr === "Downloading" ? "\uf5a2" : "\uf606"
                         enabled: cardRoot.statusStr === "Downloading"
-                        background: Rectangle {
-                            color: {
-                                if (!pauseBtn.enabled) {
-                                    return "transparent"; // 禁用后 hover 透明
-                                }
-                                return pauseBtn.hovered ? Constants.borderSubtle : "transparent";
-                            }
-                            radius: Constants.radiusControl
-                        }
-                        contentItem: Text {
-                            text: cardRoot.statusStr === "Downloading" ? "\uf5a2" : "\uf606"
-                            font.family: Constants.iconFontFamily
-                            font.pixelSize: Constants.iconFontSize
-                            color: pauseBtn.enabled ? Constants.textPrimary : Constants.textSecondary
-                            opacity: pauseBtn.enabled ? 1.0 : 0.4
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
                         onClicked: cardRoot.pauseClicked(cardRoot.taskId)
                     }
 
                     // 删除
-                    Button {
-                        id: deleteBtn
-                        width: 28
-                        height: 28
-                        background: Rectangle {
-                            color: deleteBtn.hovered ? Constants.borderSubtle : "transparent"
-                            radius: Constants.radiusControl
-                        }
-                        contentItem: Text {
-                            text: "\uf34d"
-                            font.family: Constants.iconFontFamily
-                            font.pixelSize: Constants.iconFontSize
-                            color: Constants.danger
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
+                    FluIconButton {
+                        text: "\uf34d"
+                        iconColor: Constants.danger
                         onClicked: cardRoot.deleteClicked(cardRoot.taskId)
                     }
 
-                    // TODO: 更多
-                    Button {
-                        id: moreBtn
-                        width: 28
-                        height: 28
-                        background: Rectangle {
-                            color: moreBtn.hovered ? Constants.borderSubtle : "transparent"
-                            radius: Constants.radiusControl
-                        }
-                        contentItem: Text {
-                            text: "\uf557"
-                            font.family: Constants.iconFontFamily
-                            font.pixelSize: Constants.iconFontSize
-                            color: Constants.textPrimary
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                        }
+                    // 更多
+                    FluIconButton {
+                        text: "\uf557"
+                        onClicked: {} // TODO: fix
                     }
                 }
             }

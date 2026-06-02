@@ -11,11 +11,12 @@ Item {
     // 列布局
     ColumnLayout {
         anchors.fill: parent
-        spacing: Constants.marginStandard
+        spacing: Constants.itemSpacing
 
         // 标题控件行
         RowLayout {
             Layout.fillWidth: true
+            Layout.preferredHeight: Constants.viewTitlebarHeight
 
             Text {
                 text: qsTr("下载任务")
@@ -34,33 +35,12 @@ Item {
             //                      | 准备中/下载中/暂停/取消/失败/完成
             //                      | 视频/音频/文档/程序/压缩文件/其它
 
-            Button {
-                id: createBtn
-                Layout.preferredHeight: 32
+            FluButton {
+                isAccent: true
+                text: qsTr("+ 新建任务")
                 onClicked:
                 // TODO: fix
-                // var win = rootItem.Window.window;
-                // if (win && typeof win.openNewTaskDialog === "function") {
-                //     win.openNewTaskDialog();
-                // }
                 {}
-
-                background: Rectangle {
-                    color: createBtn.hovered ? Constants.accentHover : Constants.accentPrimary
-                    radius: Constants.radiusControl
-                }
-
-                contentItem: Text {
-                    text: qsTr("+ 新建任务")
-                    font.family: Constants.fontFamily
-                    font.pixelSize: Constants.fontSizeBody
-                    font.bold: true
-                    color: "#FFFFFF"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    leftPadding: Constants.marginStandard
-                    rightPadding: Constants.marginStandard
-                }
             }
         }
 
@@ -110,6 +90,18 @@ Item {
                     saveDir: "D:/Downloads"
                     referrer: "https://ubuntu.com/download"
                     timestamp: "2026-03-30 16:45:10"
+                }
+                ListElement {
+                    taskId: 104
+                    fileName: "Windows10_InsiderPreview_Client_x64_zh-cn_22H2.iso"
+                    fileSizeStr: "4.82 GB"
+                    progressValue: 0.45
+                    speedStr: "0.0 MB/s"
+                    statusStr: "Pending"
+                    urlStr: "https://software.download.pr.microsoft.com/db/Windows11_InsiderPreview_Client_x64_zh-cn_22H2.iso"
+                    saveDir: "D:/Downloads"
+                    referrer: "https://insider.microsoft.com/"
+                    timestamp: "2026-05-31 12:21:00"
                 }
             }
 

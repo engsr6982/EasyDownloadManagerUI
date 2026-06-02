@@ -4,11 +4,18 @@
         <file>qtquickcontrols2.conf</file>
         <file>Src/App.qml</file>
         <file>Src/components/NavButton.qml</file>
-        <file>Src/components/SettingExpander.qml</file>
-        <file>Src/components/SettingGroup.qml</file>
-        <file>Src/components/SettingRow.qml</file>
         <file>Src/components/TaskCard.qml</file>
         <file>Src/Constants.qml</file>
+        <file>Src/fluent/FluButton.qml</file>
+        <file>Src/fluent/FluComboBox.qml</file>
+        <file>Src/fluent/FluIconButton.qml</file>
+        <file>Src/fluent/FluProgressBar.qml</file>
+        <file>Src/fluent/FluSettingExpander.qml</file>
+        <file>Src/fluent/FluSettingGroup.qml</file>
+        <file>Src/fluent/FluSettingRow.qml</file>
+        <file>Src/fluent/FluSwitch.qml</file>
+        <file>Src/fluent/FluText.qml</file>
+        <file>Src/fluent/FluTextField.qml</file>
         <file>Src/qmldir</file>
         <file>Src/views/SettingsView.qml</file>
         <file>Src/views/TaskListView.qml</file>
