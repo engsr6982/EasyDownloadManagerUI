@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import ".."
+import "../fluent"
 
 Button {
     id: navBtn
@@ -27,23 +28,12 @@ Button {
         radius: Constants.radiusControl
         color: (navBtn.checked || navBtn.hovered) ? Constants.navHover : "transparent"
 
-        // 蓝色状态条
-        Rectangle {
-            id: indicator
-            width: 3
-            height: navBtn.checked ? 16 : 0
+        // 状态指示器
+        FluIndicator {
+            active: navBtn.checked
             anchors.left: parent.left
-            anchors.leftMargin: 2 // 稍微内缩，防止贴死最左边切角
+            anchors.leftMargin: 2
             anchors.verticalCenter: parent.verticalCenter
-            color: Constants.indicatorSelected
-            radius: 2
-
-            Behavior on height {
-                NumberAnimation {
-                    duration: 150
-                    easing.type: Easing.OutQuad
-                }
-            }
         }
     }
 

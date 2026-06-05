@@ -1,8 +1,8 @@
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 import ".."
 import "../components"
+import "../dialog"
 
 Item {
     id: listRootContaier
@@ -38,9 +38,13 @@ Item {
             FluButton {
                 isAccent: true
                 text: qsTr("+ 新建任务")
-                onClicked:
-                // TODO: fix
-                {}
+                onClicked: {
+                    dialog.open()
+                }
+            }
+
+            NewTaskDialog {
+                id: dialog
             }
         }
 

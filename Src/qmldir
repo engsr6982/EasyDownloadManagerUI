@@ -9,3 +9,6 @@ FluTextField 1.0 fluent/FluTextField.qml
 FluText 1.0 fluent/FluText.qml
 FluProgressBar 1.0 fluent/FluProgressBar.qml
 FluIconButton 1.0 fluent/FluIconButton.qml
+FluPopup 1.0 fluent/FluPopup.qml
+FluTextArea 1.0 fluent/FluTextArea.qml
+FluIndicator 1.0 fluent/FluIndicator.qml
