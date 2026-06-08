@@ -24,6 +24,18 @@ T.ComboBox {
         border.width: 1
         radius: Constants.radiusControl
         opacity: control.enabled ? Constants.opacityStandard : Constants.opacityDisabled
+
+        // 底部高程沉淀线
+        Rectangle {
+            height: 1
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.leftMargin: Constants.radiusControl
+            anchors.rightMargin: Constants.radiusControl
+            anchors.bottomMargin: 1
+            color: Constants.shadowStandardBottom
+        }
     }
 
     // 显示文本
