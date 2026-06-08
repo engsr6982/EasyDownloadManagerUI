@@ -2,11 +2,13 @@ import QtQuick
 import QtQuick.Layouts
 import ".."
 import "../components"
-import "../dialog"
 
 Item {
-    id: listRootContaier
+    id: root
     anchors.fill: parent
+
+    signal taskSelected(var taskData)
+    signal showNewTaskDialog
 
     // 列布局
     ColumnLayout {
@@ -38,13 +40,7 @@ Item {
             FluButton {
                 isAccent: true
                 text: qsTr("+ 新建任务")
-                onClicked: {
-                    dialog.open()
-                }
-            }
-
-            NewTaskDialog {
-                id: dialog
+                onClicked: root.showNewTaskDialog()
             }
         }
 
@@ -130,6 +126,10 @@ Item {
                 onDeleteClicked: function (id) {
                     console.log("QML 捕获：删除任务 ID ->", id);
                     // TODO: 向 C++ 发送信号
+                }
+
+                onCardClicked: {
+                    root.taskSelected(model);
                 }
             }
         }

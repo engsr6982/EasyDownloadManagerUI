@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Templates as T
@@ -12,9 +13,6 @@ T.Popup {
     visible: false
     modal: true
     focus: true
-
-    // 绑定至窗口的 Overlay 层，确保弹窗渲染在最上层
-    parent: Overlay.overlay
 
     // 动态居中定位
     x: parent ? Math.round((parent.width - width) / 2) : 0
@@ -32,7 +30,14 @@ T.Popup {
     }
     Overlay.modal: Rectangle {
         color: Constants.dialogOverlay
-        radius: Constants.radiusWindow
+
+        x: root.parent ? root.parent.mapToItem(Overlay.overlay, 0, 0).x : 0
+        y: root.parent ? root.parent.mapToItem(Overlay.overlay, 0, 0).y : 0
+        width: root.parent ? root.parent.width : 0
+        height: root.parent ? root.parent.height : 0
+
+        bottomLeftRadius: Constants.radiusWindow
+        bottomRightRadius: Constants.radiusWindow
     }
 
     // 动效
