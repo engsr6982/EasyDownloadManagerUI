@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Templates as T
+import QtQuick.Effects
 import ".."
 
 T.ComboBox {
@@ -10,6 +11,18 @@ T.ComboBox {
 
     implicitWidth: 140
     implicitHeight: 32
+
+    property int popupPadding: 4   // 弹出框内边距
+    property int shadowBleed: 32   // 阴影出血区安全边距
+    readonly property real delegateHeight: 32
+
+    // 动态计算目标高度：包含项高度、间隙高度以及上下 padding 和边框
+    readonly property real targetHeight: Math.min(control.count * delegateHeight + Math.max(0, control.count - 1) * popupPadding + popupPadding * 2 + 2, 320)
+
+    property int activeIndex: 0
+    property real calculatedY: 0
+    property real animHeight: 32
+    property real animY: 0
 
     // 主体背景
     background: Rectangle {
@@ -59,62 +72,158 @@ T.ComboBox {
         rotation: control.popup.visible ? 180 : 0 // 默认朝下，点击后朝上
         Behavior on rotation {
             NumberAnimation {
-                duration: 150
-                easing.type: Easing.OutCubic
+                duration: 300
+                easing.type: Easing.OutExpo
             }
         }
     }
 
     // 下拉浮窗
     popup: Popup {
-        y: control.height + 2
-        width: control.width
+        // 撑大物理窗口，解决操作系统层面对越界阴影的裁切
+        width: control.width + control.shadowBleed * 2
+        padding: 0
+        margins: 0
 
-        implicitHeight: control.popup.contentItem ? control.popup.contentItem.implicitHeight + 2 : 2
-        padding: 1
+        // 物理窗口高度同步撑大
+        implicitHeight: control.targetHeight + control.shadowBleed * 2
+
+        // 物理窗口反向偏移补偿，保证视觉主体依旧对齐 ComboBox
+        x: -control.shadowBleed
+        y: control.calculatedY - control.shadowBleed
+
+        onAboutToShow: {
+            control.activeIndex = Math.max(0, control.currentIndex);
+            // 计算当前选中项在带 padding/gap 布局下的偏移量
+            var itemTopOffset = control.activeIndex * (control.delegateHeight + control.popupPadding) + control.popupPadding;
+            var rawY = -(itemTopOffset);
+
+            // 边缘避让计算
+            if (control.Window && control.Window.window) {
+                var globalComboY = control.mapToItem(null, 0, 0).y;
+                var windowHeight = control.Window.window.height;
+                var safetyMargin = 8;
+
+                if (globalComboY + rawY < safetyMargin) {
+                    rawY = safetyMargin - globalComboY;
+                } else if (globalComboY + rawY + control.targetHeight > windowHeight - safetyMargin) {
+                    rawY = windowHeight - safetyMargin - control.targetHeight - globalComboY;
+                }
+            }
+            control.calculatedY = rawY;
+
+            // 滚动条视口偏移量计算
+            var totalContentHeight = control.count * control.delegateHeight + Math.max(0, control.count - 1) * control.popupPadding + control.popupPadding * 2;
+            var maxContentY = Math.max(0, totalContentHeight - control.targetHeight);
+            var desiredContentY = control.activeIndex * (control.delegateHeight + control.popupPadding);
+            listView.contentY = Math.min(desiredContentY, maxContentY);
+
+            // 打开前复位动画参数
+            control.animHeight = control.height;
+            control.animY = -control.calculatedY;
+        }
 
         enter: Transition {
             NumberAnimation {
+                target: control.popup.contentItem
                 property: "opacity"
-                from: 0.0
                 to: 1.0
-                duration: 120
+                duration: 150
+                easing.type: Easing.OutQuad
             }
             NumberAnimation {
-                property: "scale"
-                from: 0.96
-                to: 1.0
-                duration: 120
-                easing.type: Easing.OutCubic
+                target: control
+                property: "animHeight"
+                to: control.targetHeight
+                duration: 250
+                easing.type: Easing.OutExpo
+            }
+            NumberAnimation {
+                target: control
+                property: "animY"
+                to: 0
+                duration: 250
+                easing.type: Easing.OutExpo
             }
         }
+
         exit: Transition {
             NumberAnimation {
+                target: control.popup.contentItem
                 property: "opacity"
-                from: 1.0
                 to: 0.0
-                duration: 100
+                duration: 120
+                easing.type: Easing.OutQuad
             }
         }
 
-        contentItem: ListView {
-            clip: true
-            implicitHeight: contentHeight
-            model: control.popup.visible ? control.delegateModel : null
+        // 视觉与效果背景层
+        background: Item {
+            // 单层白底背板
+            Rectangle {
+                id: bgPlate
+                x: control.shadowBleed
+                y: control.shadowBleed + control.animY
+                width: control.width
+                height: control.animHeight
+                radius: Constants.radiusCard
+                color: Constants.bgContent
+                border.color: Constants.borderCard
+                border.width: 1
+            }
+
+            // 阴影组件
+            MultiEffect {
+                source: bgPlate
+                anchors.fill: bgPlate
+                autoPaddingEnabled: true
+                shadowEnabled: true
+                shadowColor: Constants.bgShadowColor
+                shadowBlur: Constants.bgShadowBlur
+                shadowVerticalOffset: Constants.bgShadowVerticalOffset
+
+                // 保持阴影同步进入/退出淡出动画
+                opacity: control.popup.contentItem ? control.popup.contentItem.opacity : 0.0
+            }
         }
 
-        background: Rectangle {
-            border.color: Constants.borderCard
-            radius: Constants.radiusControl
-            color: Constants.bgContent
+        // 纯交互与内容层
+        contentItem: Item {
+            Item {
+                x: control.shadowBleed
+                y: control.shadowBleed + control.animY
+                width: control.width
+                height: control.animHeight
+                clip: true
+
+                Item {
+                    y: -control.animY
+                    width: parent.width
+                    height: control.targetHeight
+
+                    ListView {
+                        id: listView
+                        anchors.fill: parent
+                        anchors.margins: control.popupPadding // 左右以及上下 Padding 边界
+                        spacing: control.popupPadding         // 元素之间的间隔
+                        clip: true
+                        model: control.delegateModel
+                        boundsBehavior: Flickable.StopAtBounds
+
+                        ScrollBar.vertical: ScrollBar {
+                            // 计算是否需要显示滚动条
+                            policy: (control.count * control.delegateHeight + Math.max(0, control.count - 1) * control.popupPadding > control.targetHeight - control.popupPadding * 2) ? ScrollBar.AsNeeded : ScrollBar.AlwaysOff
+                        }
+                    }
+                }
+            }
         }
     }
 
-    // 下拉项 Delegate
     delegate: ItemDelegate {
         id: delegateItem
-        width: control.width - 2
-        height: 32
+        width: listView.width
+        height: control.delegateHeight
         highlighted: control.highlightedIndex === index
 
         required property int index
@@ -130,7 +239,21 @@ T.ComboBox {
         }
 
         background: Rectangle {
-            color: delegateItem.highlighted ? Constants.windowBase : "transparent"
+            color: {
+                if (control.activeIndex === delegateItem.index || delegateItem.highlighted)
+                    return Constants.standardHover; // 已选中项背景
+                return "transparent";
+            }
+            radius: Constants.radiusControl
+
+            FluIndicator {
+                active: true
+                animate: false
+                anchors.left: parent.left
+                anchors.leftMargin: 4
+                anchors.verticalCenter: parent.verticalCenter
+                visible: (control.activeIndex === delegateItem.index) && control.popup.visible
+            }
         }
     }
 }

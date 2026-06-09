@@ -36,7 +36,7 @@ Item {
 
     // Standard Colors
     readonly property color standardPrimary: "#FEFEFE"
-    readonly property color standardHover: "#FBFBFB"
+    readonly property color standardHover: "#F0F0F0" // #FBFBFB
     readonly property color standardPressed: "#FCFCFC"
 
     // Text & Border Colors
@@ -67,6 +67,10 @@ Item {
     // Border & Shadow
     readonly property color shadowAccentBottom: "#00365F" // Accent 按钮的沉淀线
     readonly property color shadowStandardBottom: "#EDEDED" // 普通按钮的沉淀线
+
+    readonly property color bgShadowColor: "#28000000" // 背景阴影
+    readonly property real bgShadowBlur: 0.8 // 背景阴影模糊度
+    readonly property real bgShadowVerticalOffset: 6 // 背景阴影垂直偏移
 
     // Layout Spacing
     readonly property real marginStandard: 16.0
