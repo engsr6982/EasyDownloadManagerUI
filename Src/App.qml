@@ -144,7 +144,8 @@ Window {
                             text: qsTr("插件中心")
                             iconText: "\uf134"
                             targetGroup: navGroup
-                            onClicked: viewLoader.sourceComponent = placeholderComp // TODO: fix
+                        viewSource: Qt.resolvedUrl("./views/ExtensionView.qml")
+                        onClicked: viewLoader.source = viewSource
                         }
                     }
 
