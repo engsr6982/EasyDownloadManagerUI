@@ -107,19 +107,38 @@ Item {
             RowLayout {
                 id: subtitlebar
                 Layout.fillWidth: true
-                spacing: 12
+                spacing: 8
 
                 FluIconButton {
                     id: closeBtn
                     text: "\uF36A"
                     onClicked: root.close()
                 }
-
                 FluText {
                     text: qsTr("任务详情")
                     font.bold: true
                     isTitle: true
                     Layout.alignment: Qt.AlignVCenter
+                }
+
+                // 弹簧
+                Item {
+                    Layout.fillWidth: true
+                    Layout.columnSpan: 1 // 占位
+                }
+
+                Row {
+                    // 暂停 / 继续
+                    FluIconButton {
+                        text: currentTaskData.statusStr === "Downloading" ? "\uf5a2" : "\uf606"
+                        enabled: currentTaskData.statusStr === "Downloading"
+                        onClicked: {} // TODO: 向 C++ 投递事件
+                    }
+                    // 打开文件夹
+                    FluIconButton {
+                        text: "\uF583"
+                        onCanceled: {} // TODO: 打开保存文件夹
+                    }
                 }
             }
 
