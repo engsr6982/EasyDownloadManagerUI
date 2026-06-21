@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import ".."
+import "../fluent"
 import "../components"
 
 Item {
@@ -9,6 +10,66 @@ Item {
 
     signal taskSelected(var taskData)
     signal showNewTaskDialog
+
+    // 右键菜单
+    FluMenu {
+        id: taskContextMenu
+        property int targetTaskId: 0
+
+        FluMenuItem {
+            bindMenu: taskContextMenu
+            iconText: "\uf5a2" // "\uf606"
+            text: qsTr("暂停") // qsTr("继续")
+            onTriggered: {
+                console.log("暂停任务 ID:", taskContextMenu.targetTaskId);
+                // TODO: 向 C++ 暂停任务
+            }
+        }
+
+        FluMenuItem {
+            bindMenu: taskContextMenu
+            iconText: "\uF13E"
+            text: qsTr("重新下载")
+            onTriggered: {
+                console.log("重新下载 ID:", taskContextMenu.targetTaskId);
+                // TODO: 向 C++ 请求重新下载文件
+            }
+        }
+
+        FluMenuSeparator {}
+
+        FluMenuItem {
+            bindMenu: taskContextMenu
+            iconText: "\uF583"
+            text: qsTr("打开文件")
+            onTriggered: {
+                console.log("打开文件");
+                // TODO: 打开文件
+            }
+        }
+        FluMenuItem {
+            bindMenu: taskContextMenu
+            iconText: "\uF42F"
+            text: qsTr("打开文件夹")
+            onTriggered: {
+                console.log("打开文件夹");
+                // TODO: 打开文件夹
+            }
+        }
+
+        FluMenuSeparator {}
+
+        FluMenuItem {
+            bindMenu: taskContextMenu
+            iconText: "\uf34d"
+            text: qsTr("删除任务")
+            isDanger: true
+            onTriggered: {
+                console.log("删除任务 ID:", taskContextMenu.targetTaskId);
+                // TODO: 删除任务对话框
+            }
+        }
+    }
 
     // 列布局
     ColumnLayout {
@@ -127,6 +188,11 @@ Item {
                 onDeleteClicked: function (id) {
                     console.log("QML 捕获：删除任务 ID ->", id);
                     // TODO: 向 C++ 发送信号
+                }
+
+                onRightClicked: function (taskId, targetItem, mouseX, mouseY) {
+                    taskContextMenu.targetTaskId = taskId;
+                    taskContextMenu.popup(targetItem, mouseX, mouseY);
                 }
 
                 onCardClicked: {

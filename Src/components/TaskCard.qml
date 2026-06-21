@@ -23,7 +23,7 @@ Item {
     signal cardClicked(int taskId)
     signal pauseClicked(int taskId)
     signal deleteClicked(int taskId)
-    signal rightClicked(int taskId)
+    signal rightClicked(int taskId, Item targetItem, real mouseX, real mouseY)
 
     Rectangle {
         id: delegateCard
@@ -43,7 +43,14 @@ Item {
             id: delegateMouseArea
             anchors.fill: parent
             hoverEnabled: true
-            onClicked: cardRoot.cardClicked(cardRoot.taskId)
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
+            onClicked: function(mouse) {
+                if (mouse.button === Qt.RightButton) {
+                    cardRoot.rightClicked(cardRoot.taskId, cardRoot, mouse.x, mouse.y)
+                } else if (mouse.button === Qt.LeftButton) {
+                    cardRoot.cardClicked(cardRoot.taskId)
+                }
+            }
         }
 
         RowLayout {
@@ -153,7 +160,7 @@ Item {
                     // 更多
                     FluIconButton {
                         text: "\uf557"
-                        onClicked: cardRoot.rightClicked(cardRoot.taskId)
+                        onClicked: cardRoot.rightClicked(cardRoot.taskId, this, 0, this.height)
                     }
                 }
             }

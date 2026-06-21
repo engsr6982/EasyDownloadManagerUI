@@ -12,3 +12,6 @@ FluIconButton 1.0 fluent/FluIconButton.qml
 FluPopup 1.0 fluent/FluPopup.qml
 FluTextArea 1.0 fluent/FluTextArea.qml
 FluIndicator 1.0 fluent/FluIndicator.qml
+FluMenu 1.0 fluent/FluMenu.qml
+FluMenuItem 1.0 fluent/FluMenuItem.qml
+FluMenuSeparator 1.0 fluent/FluMenuSeparator.qml

@@ -13,6 +13,9 @@
         <file>Src/fluent/FluComboBox.qml</file>
         <file>Src/fluent/FluIconButton.qml</file>
         <file>Src/fluent/FluIndicator.qml</file>
+        <file>Src/fluent/FluMenu.qml</file>
+        <file>Src/fluent/FluMenuItem.qml</file>
+        <file>Src/fluent/FluMenuSeparator.qml</file>
         <file>Src/fluent/FluPopup.qml</file>
         <file>Src/fluent/FluProgressBar.qml</file>
         <file>Src/fluent/FluSettingExpander.qml</file>
