@@ -39,7 +39,8 @@ Item {
 
             FluButton {
                 isAccent: true
-                text: qsTr("+ 新建任务")
+                text: qsTr("新建任务")
+                iconText: "\uF151"
                 onClicked: root.showNewTaskDialog()
             }
         }

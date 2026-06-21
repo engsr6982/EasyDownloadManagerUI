@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
 import ".."
 import "../fluent"
@@ -21,8 +20,10 @@ Item {
     property string referrer
     property string timestamp
 
+    signal cardClicked(int taskId)
     signal pauseClicked(int taskId)
     signal deleteClicked(int taskId)
+    signal rightClicked(int taskId)
 
     Rectangle {
         id: delegateCard
@@ -42,17 +43,7 @@ Item {
             id: delegateMouseArea
             anchors.fill: parent
             hoverEnabled: true
-            onClicked:
-            // TODO: fix
-            // var win = cardRoot.Window.window;
-            // if (win && typeof win.openDetailsDrawer === "function") {
-            //     win.openDetailsDrawer({
-            //         "taskId": taskId, "fileName": fileName, "fileSizeStr": fileSizeStr,
-            //         "progressValue": progressValue, "speedStr": speedStr, "statusStr": statusStr,
-            //         "urlStr": urlStr, "saveDir": saveDir, "referrer": referrer, "timestamp": timestamp
-            //     });
-            // }
-            {}
+            onClicked: cardRoot.cardClicked(cardRoot.taskId)
         }
 
         RowLayout {
@@ -162,7 +153,7 @@ Item {
                     // 更多
                     FluIconButton {
                         text: "\uf557"
-                        onClicked: {} // TODO: fix
+                        onClicked: cardRoot.rightClicked(cardRoot.taskId)
                     }
                 }
             }

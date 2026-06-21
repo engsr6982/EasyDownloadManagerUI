@@ -1,5 +1,6 @@
 <RCC>
     <qresource>
+        <file>.vscode/settings.json</file>
         <file>EasyDownloadManagerUI.qmlproject</file>
         <file>qtquickcontrols2.conf</file>
         <file>Src/App.qml</file>
@@ -7,6 +8,7 @@
         <file>Src/components/TaskCard.qml</file>
         <file>Src/Constants.qml</file>
         <file>Src/dialog/NewTaskDialog.qml</file>
+        <file>Src/drawer/TaskDetailDrawer.qml</file>
         <file>Src/fluent/FluButton.qml</file>
         <file>Src/fluent/FluComboBox.qml</file>
         <file>Src/fluent/FluIconButton.qml</file>
@@ -20,7 +22,9 @@
         <file>Src/fluent/FluText.qml</file>
         <file>Src/fluent/FluTextArea.qml</file>
         <file>Src/fluent/FluTextField.qml</file>
+        <file>Src/fonts/FluentSystemIcons-Regular.json</file>
         <file>Src/qmldir</file>
+        <file>Src/views/ExtensionView.qml</file>
         <file>Src/views/SettingsView.qml</file>
         <file>Src/views/TaskListView.qml</file>
     </qresource>
