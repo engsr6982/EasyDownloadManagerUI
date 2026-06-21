@@ -165,7 +165,7 @@ Item {
                             color: Qt.alpha(Constants.bgContent, 0.4)
                             border.color: Constants.borderSubtle
                             border.width: 1
-                            radius: 4
+                            radius: Constants.radiusCard
 
                             GridLayout {
                                 id: statusGrid
@@ -188,7 +188,7 @@ Item {
                                         text: currentTaskData ? currentTaskData.speedStr : "0 MB/s"
                                         font.pixelSize: 18
                                         font.bold: true
-                                        color: "#0078D4"
+                                        isAccent: true
                                         elide: Text.ElideRight // 超出只向右侧隐藏
                                     }
                                 }
@@ -218,7 +218,7 @@ Item {
                             implicitHeight: 150
                             border.color: Constants.borderSubtle
                             border.width: 1
-                            radius: 4
+                            radius: Constants.radiusCard
                             color: "transparent"
 
                             ColumnLayout {
@@ -263,21 +263,35 @@ Item {
 
                                     model: 32 // TODO: 使用C++侧数据
 
-                                    delegate: Item {
+                                    delegate: Rectangle {
+                                        id: threadStateElement
                                         width: threadListView.width
                                         height: 24
+                                        radius: Constants.radiusCard
+
+                                        MouseArea {
+                                            id: threadStateElementMouseArea
+                                            anchors.fill: parent
+                                            hoverEnabled: true
+                                        }
+
+                                        color: threadStateElementMouseArea.containsMouse ? Constants.standardHover : "transparent"
 
                                         RowLayout {
                                             anchors.fill: parent
                                             spacing: 0 // 保持和表头完全一致的间距逻辑
 
+                                            // 外边距模拟内边距
+                                            anchors.leftMargin: 6
+                                            anchors.rightMargin: 6
+
                                             FluText {
                                                 text: "# " + (index + 1)
-                                                Layout.preferredWidth: 48 // 与表头“线程”宽度严格一致
+                                                // 42 像素净宽 + 6 像素左边距 = 48 像素, 视觉上和表头对齐
+                                                Layout.preferredWidth: 42
                                             }
                                             FluText {
                                                 text: qsTr("接收中...") // TODO: 使用C++侧数据
-                                                color: "#107C41"
                                                 Layout.fillWidth: true // 自动向左紧贴对齐
                                             }
                                         }
@@ -310,7 +324,7 @@ Item {
                             color: Qt.alpha(Constants.bgContent, 0.4)
                             border.color: Constants.borderSubtle
                             border.width: 1
-                            radius: 4
+                            radius: Constants.radiusCard
 
                             GridLayout {
                                 id: infoGrid
