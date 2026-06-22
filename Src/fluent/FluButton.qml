@@ -8,10 +8,11 @@ T.Button {
     id: control
 
     property bool isAccent: false
+    property bool isDanger: false
 
     // 图标配置
     property string iconText: "" // 图标 glyph（留空则不显示图标）
-    property color iconColor: control.isAccent ? Constants.textOnAccent : Constants.textPrimary
+    property color iconColor: (control.isAccent || control.isDanger) ? Constants.textOnAccent : Constants.textPrimary
     property int iconSize: Constants.iconFontSize
     property string iconFontFamily: Constants.iconFontFamily
     property bool iconRight: false // 图标是否显示在文本右侧（默认在左侧）
@@ -19,7 +20,7 @@ T.Button {
     hoverEnabled: true
 
     // ================== 动态间距与内边距自适应 ==================
-    // 如果是纯图标按钮（没有文本），则缩小内边距以实现完美的正方形效果
+    // 如果是纯图标扁平按钮（没有文本），则缩小内边距以实现完美的正方形效果
     padding: 0
     topPadding: (control.text === "") ? 2 : 4
     bottomPadding: (control.text === "") ? 2 : 4
@@ -45,11 +46,14 @@ T.Button {
                 return control.hovered ? Constants.borderSubtle : "transparent";
             }
             if (control.pressed) {
+                if (control.isDanger) return Constants.dangerPressed;
                 return control.isAccent ? Constants.accentPressed : Constants.standardPressed;
             }
             if (control.hovered) {
+                if (control.isDanger) return Constants.dangerHover;
                 return control.isAccent ? Constants.accentHover : Constants.standardHover;
             }
+            if (control.isDanger) return Constants.danger;
             return control.isAccent ? Constants.accentPrimary : Constants.standardPrimary;
         }
 
@@ -69,7 +73,7 @@ T.Button {
             anchors.leftMargin: Constants.radiusControl
             anchors.rightMargin: Constants.radiusControl
             anchors.bottomMargin: 1
-            color: control.isAccent ? Constants.shadowAccentBottom : Constants.shadowStandardBottom
+            color: control.isDanger ? Constants.dangerShadowBottom : (control.isAccent ? Constants.shadowAccentBottom : Constants.shadowStandardBottom)
             visible: !control.flat
         }
     }
@@ -105,7 +109,7 @@ T.Button {
                 text: control.text
                 font.family: Constants.fontFamily
                 font.pixelSize: Constants.fontSizeBody
-                color: control.isAccent ? Constants.textOnAccent : Constants.textPrimary
+                color: (control.isAccent || control.isDanger) ? Constants.textOnAccent : Constants.textPrimary
                 visible: control.text !== ""
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter

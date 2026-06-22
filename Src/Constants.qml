@@ -86,4 +86,7 @@ Item {
     readonly property color success: "#107C41"
     readonly property color warning: "#FFB900"
     readonly property color danger: "#E81123"
+    readonly property color dangerHover: "#EC2F3F"
+    readonly property color dangerPressed: "#C50F1F"
+    readonly property color dangerShadowBottom: "#8B0A15"
 }

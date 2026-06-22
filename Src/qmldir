@@ -15,3 +15,4 @@ FluIndicator 1.0 fluent/FluIndicator.qml
 FluMenu 1.0 fluent/FluMenu.qml
 FluMenuItem 1.0 fluent/FluMenuItem.qml
 FluMenuSeparator 1.0 fluent/FluMenuSeparator.qml
+FluCheckBox 1.0 fluent/FluCheckBox.qml

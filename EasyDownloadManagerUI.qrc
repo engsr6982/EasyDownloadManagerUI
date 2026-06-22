@@ -7,9 +7,11 @@
         <file>Src/components/NavButton.qml</file>
         <file>Src/components/TaskCard.qml</file>
         <file>Src/Constants.qml</file>
+        <file>Src/dialog/DeleteTaskDialog.qml</file>
         <file>Src/dialog/NewTaskDialog.qml</file>
         <file>Src/drawer/TaskDetailDrawer.qml</file>
         <file>Src/fluent/FluButton.qml</file>
+        <file>Src/fluent/FluCheckBox.qml</file>
         <file>Src/fluent/FluComboBox.qml</file>
         <file>Src/fluent/FluIconButton.qml</file>
         <file>Src/fluent/FluIndicator.qml</file>

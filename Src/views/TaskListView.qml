@@ -10,6 +10,7 @@ Item {
 
     signal taskSelected(var taskData)
     signal showNewTaskDialog
+    signal showDeleteTaskDialog(int taskId)
 
     // 右键菜单
     FluMenu {
@@ -64,10 +65,7 @@ Item {
             iconText: "\uf34d"
             text: qsTr("删除任务")
             isDanger: true
-            onTriggered: {
-                console.log("删除任务 ID:", taskContextMenu.targetTaskId);
-                // TODO: 删除任务对话框
-            }
+            onTriggered: root.showDeleteTaskDialog(taskContextMenu.targetTaskId)
         }
     }
 
@@ -186,8 +184,7 @@ Item {
                 }
 
                 onDeleteClicked: function (id) {
-                    console.log("QML 捕获：删除任务 ID ->", id);
-                    // TODO: 向 C++ 发送信号
+                    root.showDeleteTaskDialog(id);
                 }
 
                 onRightClicked: function (taskId, targetItem, mouseX, mouseY) {

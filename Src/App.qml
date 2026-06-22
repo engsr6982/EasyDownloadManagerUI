@@ -202,6 +202,11 @@ Window {
         width: 280
         z: 100
     }
+    DeleteTaskDialog {
+        id: globalDeleteTaskDialog
+        parent: contentContainer
+        onConfirmed: function (taskId, deleteFiles) {} // TODO: 向 C++ 通知
+    }
     Connections {
         target: viewLoader.item
         ignoreUnknownSignals: true
@@ -211,6 +216,10 @@ Window {
         }
         function onShowNewTaskDialog() {
             globalNewTaskDialog.open();
+        }
+        function onShowDeleteTaskDialog(taskId) {
+            globalDeleteTaskDialog.taskId = taskId;
+            globalDeleteTaskDialog.open();
         }
     }
 }
