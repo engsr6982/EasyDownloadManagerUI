@@ -72,6 +72,7 @@ T.Switch {
         width: 40
         height: 20
         radius: 10
+        opacity: control.enabled ? Constants.opacityStandard : Constants.opacityDisabled
 
         x: {
             if (control.showText && control.contentItem) {
@@ -81,6 +82,7 @@ T.Switch {
         }
         y: control.topPadding + Math.round((control.availableHeight - height) / 2)
 
+        // 背景色
         color: {
             if (control.checked) {
                 return Constants.accentPrimary;
@@ -89,10 +91,13 @@ T.Switch {
         }
 
         border.color: {
-            if (control.checked) {
-                return Constants.accentPrimary;
+            if (control.enabled) {
+                if (control.checked) {
+                    return Constants.accentPrimary; // 与背景同色(隐藏边框)
+                }
+                return Constants.textSecondary;
             }
-            return Constants.textSecondary;
+            return Constants.textDisabled;
         }
         border.width: 1
 
@@ -122,10 +127,13 @@ T.Switch {
             }
 
             color: {
-                if (control.checked) {
-                    return Constants.bgContent;
+                if (control.enabled) {
+                    if (control.checked) {
+                        return Constants.bgContent;
+                    }
+                    return Constants.textSecondary;
                 }
-                return Constants.textSecondary;
+                return Constants.textDisabled;
             }
 
             Behavior on x {
